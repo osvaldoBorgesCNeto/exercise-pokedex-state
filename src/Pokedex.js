@@ -16,7 +16,6 @@ class Pokedex extends React.Component {
   }
 
   changePokemon(numberPokemon) {
-		console.log(numberPokemon)
 		this.setState((estadoAnterior, _props) => ({ filter: estadoAnterior.filter + 1 }));
     if ((this.state.filter + 1) >= numberPokemon) {
       this.setState((estadoAnterior, _props) => ({ filter: estadoAnterior.filter = 0 }));
@@ -41,14 +40,15 @@ class Pokedex extends React.Component {
   render() {
 		const allPokemons = this.allPokemons();
 		const pokemon = allPokemons[this.state.filter];
-		const { pokemons } = this.props; 
+		const { pokemons } = this.props;
+		const pokeTypes = pokemons.reduce((acc, curr) => acc.includes(curr.type) ? acc : [ ...acc, curr.type], []);
 
 		return (
 			<div className="pokedex">
 				<Pokemon pokemon={pokemon} key={pokemon.id}/>
-				<div>
+				<div className="pokedex">
 					<Button onClick={() => this.filterTypePokemon('all')} text={'All'}/>
-					{pokemons.map(pokemon => <Button onClick={() => this.filterTypePokemon(pokemon.type)} text={pokemon.type}/>)}
+					{pokeTypes.map(pokemon => <Button onClick={() => this.filterTypePokemon(pokemon)} key={pokemon} text={pokemon}/>)}
       	</div>
         <Button onClick={() => this.changePokemon(allPokemons.length)} disabled={ allPokemons.length <= 1 } text={'Proximo'}/>
 			</div>

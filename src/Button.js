@@ -7,7 +7,7 @@ class Button extends React.Component {
       <button
       onClick={ onClick }
       disabled={ disabled }
-      >{text}
+      >{ text }
       </button>
     );
   }
